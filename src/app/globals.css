@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .stat-label {
+    @apply bg-[#edff8c] text-black/80 py-[2px] px-1 rounded-md;
+  }
+}
+
+body {
+  font-family: "Manrope", serif;
+}
+
+
+.noScrollbar::-webkit-scrollbar {
+display: none;
+}
+
+.noScrollbar {
+  -ms-overflow-style: none;
+}
