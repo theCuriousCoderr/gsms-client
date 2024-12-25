@@ -29,6 +29,7 @@ import {
 import getEachDayCount from "@/utils/getEachDayCount";
 import { MoveLeft, MoveRight, Send } from "lucide-react";
 import getEachWeekCount from "@/utils/getEachWeekCount";
+import { useRouter } from "next/navigation";
 
 ChartJS.register(
   CategoryScale,
@@ -40,6 +41,7 @@ ChartJS.register(
 );
 
 export default function Dashboard() {
+  const router = useRouter()
   const [email, setEmail] = useState("");
   const [userReport, setUserReport] = useState<UserReportType[] | []>([]);
   const [dailyBarData, setDailyBarData] = useState<number[] | []>([]);
@@ -54,7 +56,15 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    setEmail(getUserEmail());
+
+    let storedEmail = getUserEmail();
+    if (storedEmail && storedEmail.length > 0) {
+      setEmail(getUserEmail());
+    } else {
+      alert("Provide an email on login")
+      router.push("/")
+    }
+    
     executeAsyncCalls();
   }, []);
 
