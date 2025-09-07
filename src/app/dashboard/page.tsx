@@ -64,7 +64,7 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://gsms-server.onrender.com");
+    const socket = new WebSocket("wss://gsms-server.onrender.com");
     socket.onmessage = (event) => {
       const msg = JSON.parse(event.data);
       if (msg.event === "sensorUpdate") {
