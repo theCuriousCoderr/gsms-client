@@ -1,13 +1,21 @@
 "use client";
 
 import Logo from "@/svgs/tallyLogo";
+import {
+  ChartNoAxesCombined,
+  Droplets,
+  FileClock,
+  House,
+  MonitorCog,
+  Radio,
+  ThermometerSun,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 function Spinner() {
   return (
     <div className="flex gap-3 items-center">
-      <p className="text-[#0A0A0A]/60 font-medium">Checking</p>
       <div className="size-5 border-2 border-[#0A0A0A] border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
@@ -16,67 +24,101 @@ function Spinner() {
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
 
-  function handleSubmit(e: FormEvent) {
+  function goToDashboard() {
     setLoading(true);
-    e.preventDefault();
-
-    if (email) {
-      setTimeout(() => {
-        localStorage.setItem("KeyCountEmail", email);
-        setLoading(false);
-        router.push("/dashboard");
-      }, 2000);
-    } else {
-      setLoading(false);
-    }
+    router.push("/dashboard");
+    // setLoading(false);
+     
   }
 
   return (
-    <main className="relative h-screen w-full p-5 bg-[#0A0A0A]">
-      <div className="flex flex-col size-full borde rounded-lg bg-[#e9eeea">
-        <header className="relative z-10 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="size-8">
-              <Logo fill="#FFFFFF" stroke="#000000" />
+    <main className="relative h-screen overflow-auto w-full p-5 bg-[#c3eb6c bg-[#22b886 flex flex-col gap-10">
+      <div className="space-y-5">
+        {/* text */}
+        <div>
+          <h1 className="text-2xl font-bold text-center">Remote Monitoring</h1>
+          <p className="text-lg font-light text-center leading-tight">
+            Monitor the internal conditions of your grain storage structure.
+          </p>
+        </div>
+        {/* icons */}
+        <div className="relative mx-auto w-[50%] max-w-[300px] aspect-[1/2.5] lg:aspect-[1/1.5] max-h-60 lg:max-h-max  bg-[#ecf0f3] flex items-center justify-center rounded-md ">
+          {/* right hand side */}
+          <div className="absolute -right-10 h-full lg:h-[90%] w-8 flex flex-col justify-between">
+            <div>
+              <div className="size-8 bg-[#22b886] rounded-full rounded-bl-none flex items-center justify-center">
+                <ThermometerSun color="#ecf0f3" size={18} />
+              </div>
+              <p className="text-[10px] lg:text-sm">Live Temperature</p>
             </div>
-            <p className="font-bold first-letter:italic first-letter:text-xl text-[#EDEDED]">
-              KeyCount{" "}
-            </p>
+
+            <div>
+              <div className="size-8 bg-[#22b886] rounded-full rounded-l-none flex items-center justify-center">
+                <FileClock color="#ecf0f3" size={18} />
+              </div>
+              <p className="text-[10px] lg:text-sm">History Logs</p>
+            </div>
+
+            <div>
+              <div className="size-8 bg-[#22b886] rounded-full rounded-tl-none flex items-center justify-center">
+                <ChartNoAxesCombined color="#ecf0f3" size={18} />
+              </div>
+              <p className="text-[10px] lg:text-sm">Graphs Insights</p>
+            </div>
           </div>
 
-          <p className="text-[#EDEDED] xs:max-md:hidden">
-            A User Dashboard for the KeyCount VSCode Extension
-          </p>
-        </header>
-        <section className="absolute top-0 left-0 h-full w-full flex items-center justify-center">
-          <div className=" flex flex-col items-center">
-            <p className="text-center font-bold text-[#EDEDED] text-2xl w-80">
-              Log in to KeyCount
-            </p>
-            <form onSubmit={handleSubmit} className="max-w-80 space-y-2 mt-4">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-12 rounded-lg bg-[#0A0A0A] border border-white/20 hover:border-white/50 p-5 text-[#EDEDED]"
-                placeholder="Email"
-              />
-              <button
-                disabled={loading}
-                className="w-full h-12 rounded-lg bg-[#EDEDED] hover:bg-[#EDEDED]/85 disabled:hover:bg-[#EDEDED]/50 disabled:bg-[#EDEDED]/50  text-[#0A0A0A] font-medium flex items-center justify-center"
-              >
-                {loading ? <Spinner /> : "Continue with Email"}
-              </button>
-              {email === "Invalid" && (
-                <p className="text-red-400 text-sm font-extralight">
-                  Please put in your KeyCount Email text-center
-                </p>
-              )}
-            </form>
+          {/* left hand side */}
+          <div className="absolute -left-10 h-full lg:h-[90%] w-8 flex flex-col justify-between">
+            <div className="flex flex-col items-end">
+              <div className=" size-8 bg-[#22b886] rounded-full rounded-br-none flex items-center justify-center">
+                <Radio color="#ecf0f3" size={18} />
+              </div>
+              <p className="text-[10px] lg:text-sm text-right">
+                Easy to use
+              </p>
+            </div>
+
+            <div className="flex flex-col items-end">
+              <div className="size-8 bg-[#22b886] rounded-full rounded-r-none flex items-center justify-center">
+                <MonitorCog color="#ecf0f3" size={18} />
+              </div>
+              <p className="text-[10px] lg:text-sm text-right">
+                Manage Settings
+              </p>
+            </div>
+
+            <div className="flex flex-col items-end">
+              <div className="size-8 bg-[#22b886] rounded-full rounded-tr-none flex items-center justify-center">
+                <Droplets color="#ecf0f3" size={18} />
+              </div>
+              <p className="text-[10px] lg:text-sm text-right">Live Humidity</p>
+            </div>
           </div>
-        </section>
+
+          <div className="relative w-[50%] aspect-square flex items-center justify-center">
+            <div className="absolute w-[98%] bg-green-500 bg-opacity-0 aspect-square rounded-full border animate-spin border-dashed border-black flex items-center justify-center">
+              {/* <House fill="#22b886" size={30} /> */}
+            </div>
+
+            <div className="w-[80%] aspect-square rounded-full border border-dashed border-black flex items-center justify-center animate-pulse">
+              <House fill="#22b886" size={30} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full lg:w-1/3 lg:mx-auto bg-[#22b886] rounded-md h-10 flex items-center justify-center">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <button
+            onClick={goToDashboard}
+            className=" rounded-md size-full hover:bg-opacity-80 text-[#ecf0f3]"
+          >
+            Go to dashboard
+          </button>
+        )}
       </div>
     </main>
   );
